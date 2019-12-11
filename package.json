@@ -1,5 +1,5 @@
 {
-  "name": "ts-lib-template",
+  "name": "use-reload",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
@@ -108,6 +108,12 @@
     "tslint-config-prettier": "^1.15.0",
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.12.0",
-    "typescript": "^3.0.3"
+    "typescript": "^3.0.3",
+    "@types/react": "^16.8.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
   }
 }
