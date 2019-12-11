@@ -28,3 +28,14 @@ export const useRelaod = (): Reload => {
     }
   }
 }
+const MyButton = () => {
+  return (
+    <WithReload>
+      {reload => (
+        <button onClick={reload}>
+          ---------------------------------------Press Here to Remount the App!
+        </button>
+      )}
+    </WithReload>
+  )
+}
