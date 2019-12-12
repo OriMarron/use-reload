@@ -11,7 +11,8 @@ By remounting, it will reset all React state and hooks, and force-retrigger any 
 
 ## Usage
 
-The most simple usage:
+Simple usage:
+
 call `useReload` to get a callback to reload everything inside `<Reloadable>`
 
 ```jsx
@@ -31,7 +32,7 @@ const App = () => (
 )
 ```
 
-Alternatively, you can use the `reloadable` HOC:
+Alternatively, you can use the `reloadable` HOC to make a component reloadable:
 
 ```jsx
 const AppComp = () => (
@@ -44,20 +45,21 @@ const AppComp = () => (
 const App = reloadable(AppComp)
 ```
 
-don't like hooks?
-try withReload:
+don't like hooks? use withReload instead:
 
 ```jsx
-const MyButton = () => {
-  return (
-    <WithReload>
-      {reload => (
-        <button onClick={reload}>
-          Press Here to Remount the App!
-        </button>
-      )}
-    </WithReload>
-  )
+class MyButton extends React.Component {
+  render() {
+    return (
+      <WithReload>
+        {reload => (
+          <button onClick={reload}>
+            Press Here to Remount the App!
+          </button>
+        )}
+      </WithReload>
+    )
+  }
 }
 
 ```
@@ -70,3 +72,16 @@ const MyButton = () => {
 - ```
   yarn add use-reload
   ```
+
+## How does it work
+`use-reload` takes advantage of how [React reconcilliation](https://reactjs.org/docs/reconciliation.html#keys) treats the `key` attribute. 
+
+**short version**:
+
+when `relooad()` is triggered, the `Reloadable` component is rendered with a different `key` prop, causing React to unmount and remount it .
+
+**long version**
+
+When a component is rendered for the second time, the reconnciliation mechannism compares the resulting element tree against the one already mounted. If the new root element has the same type as the old one, React will only *update* the existing component instance and it will not be unmounted.
+
+However, if two elements have a different `key` element, React will consider them to be different, even if they are otherwise identical. Since React sees a different element, It unmounts and destroys the old one (and all of it's subtree), and initializes the *new* subtree, with fresh state, hooks, and lifecycle.
