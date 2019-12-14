@@ -2,6 +2,8 @@
 
 **A simple hook to restart you React application - without refreshing the page**
 
+## Why
+
 At some point, **every application will face an unexpected error**.
 Usually you will show the user a nice message with a funny image, but then what? The user is stuck - only option is to **refresh the entire page!**
 
@@ -78,10 +80,10 @@ class MyButton extends React.Component {
 
 **short version**:
 
-when `relooad()` is triggered, the `Reloadable` component is rendered with a different `key` prop, causing React to unmount and remount it .
+when `relooad()` is triggered, the `key` prop is changed, causing React to  remount the reloadable component.
 
 **long version**
 
 When a component is rendered for the second time, the reconnciliation mechannism compares the resulting element tree against the one already mounted. If the new root element has the same type as the old one, React will only *update* the existing component instance and it will not be unmounted.
 
-However, if two elements have a different `key` element, React will consider them to be different, even if they are otherwise identical. Since React sees a different element, It unmounts and destroys the old one (and all of it's subtree), and initializes the *new* subtree, with fresh state, hooks, and lifecycle.
+However, if two elements have a different `key` element, React will consider them to be different, even if they are otherwise identical. Since the elements are considered different, React unmounts and destroys the old element (and all of it's subtree), and initializes the *new* subtree, with fresh state, hooks, and lifecycle.
