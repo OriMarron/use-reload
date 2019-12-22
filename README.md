@@ -80,7 +80,7 @@ class MyButton extends React.Component {
 
 **short version**:
 
-when `relooad()` is triggered, the `key` prop is changed, causing React to  remount the reloadable component.
+when `reload()` is triggered, the `key` prop is changed, causing React to  remount the reloadable component.
 
 **long version**
 
